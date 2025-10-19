@@ -16,6 +16,10 @@ void GotoXY(int x, int y);
 void DrawBoard(int pSize);
 int ProcessFinish(int pWhoWin);
 int AskContinue();
+
+int mainScreen(int& x, int& y);
+void PrintXY(int x, int y, const string& message);
+void Cursor(bool is_up, int POSX, int POSY);
 #endif
 
 

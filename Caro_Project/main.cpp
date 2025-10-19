@@ -1,12 +1,16 @@
 #include "View.h"
-#include "Model.h"
+#include "Model_2ends.h"
 #include "Control.h"
 #include "Globals.h"
 #include <iostream>
+#include <cctype>
 using namespace std;
 
-void main() {
+int main() {
 	FixConsoleWindow();
+	int x = 0, y = 0;
+	if (mainScreen(x, y) == 0) return 0;
+
 	StartGame();
 	bool validEnter = true;
 	while (1)
@@ -15,7 +19,7 @@ void main() {
 		if (_COMMAND == 27)
 		{
 			ExitGame();
-			return;
+			return 0;
 		}
 		else {
 			if (_COMMAND == 'A') MoveLeft();
@@ -31,18 +35,19 @@ void main() {
 				case 0: validEnter = false;
 				}
 				if (validEnter == true) {
-					/*switch (ProcessFinish(TestBoard())) {
+					switch (ProcessFinish(TestBoard_BlockedTwoEnds())) {
 					case -1: case 1: case 0:
 						if (AskContinue() != 'Y') {
 							ExitGame(); 
 							return 0;
 						}
 						else StartGame();
-					}*/
+					}
 				}
 				validEnter = true;
 
 			}
 		}
 	}
+	return 0;
 }

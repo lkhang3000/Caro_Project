@@ -126,13 +126,13 @@
     <ClCompile Include="Control.cpp" />
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Model_2ends.cpp" />
     <ClCompile Include="View.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Control.h" />
     <ClInclude Include="Globals.h" />
-    <ClInclude Include="Model.h" />
+    <ClInclude Include="Model_2ends.h" />
     <ClInclude Include="View.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
