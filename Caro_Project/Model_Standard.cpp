@@ -1,5 +1,5 @@
 // Model.cpp
-#include "Model_2ends.h"
+#include "Model_Standard.h"
 #include "Globals.h"
 
 // Reset bàn cờ
@@ -159,4 +159,5 @@ int TestBoard_Standard()
 
     return 2; // chưa ai thắng
 }
+
 
