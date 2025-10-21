@@ -1,5 +1,5 @@
 #include "View.h"
-#include "Model_2ends.h"
+#include "Model.h"
 #include "Globals.h"
 
 void FixConsoleWindow() {
