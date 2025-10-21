@@ -1,5 +1,5 @@
 #include "Control.h"
-#include "Model_2ends.h"
+#include "Model.h"
 #include "View.h"
 #include "Globals.h"
 
