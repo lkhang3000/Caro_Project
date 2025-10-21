@@ -27,7 +27,7 @@
     <ClCompile Include="Globals.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Model_2ends.cpp">
+    <ClCompile Include="Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,13 +35,13 @@
     <ClInclude Include="View.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Model_2ends.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Control.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Globals.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
