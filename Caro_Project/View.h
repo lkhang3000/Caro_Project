@@ -6,8 +6,8 @@
 #include <conio.h>
 
 #define BOARD_SIZE 12 
-#define LEFT 
-#define TOP
+const int BOARD_LEFT = 2;
+const int BOARD_TOP = 1;
 
 using namespace std;
 

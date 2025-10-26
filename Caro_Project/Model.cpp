@@ -9,8 +9,8 @@ void ResetData()
     {
         for (int j = 0; j < BOARD_SIZE; j++)
         {
-            _A[i][j].x = 4 * j + LEFT + 2;
-            _A[i][j].y = 2 * i + TOP + 1;
+            _A[i][j].x = 4 * j + BOARD_LEFT + 2;
+            _A[i][j].y = 2 * i + BOARD_TOP + 1;
             _A[i][j].c = 0;
         }
     }
