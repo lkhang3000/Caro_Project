@@ -1,6 +1,7 @@
 #pragma once
 #ifndef View_h
 #define View_h
+#include <SFML/Graphics.hpp>
 #include <Windows.h>
 #include <iostream>
 #include <conio.h>
@@ -17,7 +18,8 @@ void DrawBoard(int pSize);
 int ProcessFinish(int pWhoWin);
 int AskContinue();
 
-int mainScreen(int& x, int& y);
+int mainScreen(sf::RenderWindow& window);
+int modeChoosing(sf::RenderWindow& window);
 void PrintXY(int x, int y, const string& message);
 void Cursor(bool is_up, int POSX, int POSY);
 #endif

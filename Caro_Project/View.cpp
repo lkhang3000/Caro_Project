@@ -1,4 +1,4 @@
-﻿#include <SFML/Graphics.hpp>
+﻿//#include <SFML/Graphics.hpp>
 
 #include "View.h"
 #include "Model.h"
@@ -11,16 +11,7 @@ void FixConsoleWindow() {
 	SetWindowLong(consoleWindow, GWL_STYLE, style);
 }
 
-int mainScreen(int& x, int& y) {
-	const int top = 18;
-	const int left = 55;
-
-	x = top;
-	y = left;
-
-	sf::RenderWindow window(sf::VideoMode(1366, 768), "Caro", sf::Style::Close);
-	window.setVerticalSyncEnabled(true);
-
+int mainScreen(sf::RenderWindow& window) {
 	sf::Texture backgroundT;
 	if (!backgroundT.loadFromFile("Assets/background_menu.png")) {
 	}
@@ -34,6 +25,7 @@ int mainScreen(int& x, int& y) {
 
 	sf::Sprite titleS(titleT);
 	titleS.setScale(4.26875f, 4.267f);
+	
 	//Tính vị trí title Caro
 	double titleWidth = titleT.getSize().x * 4.26875f;
 	double titleX = (1366.f - titleWidth) / 2.f;
@@ -86,7 +78,7 @@ int mainScreen(int& x, int& y) {
 	double ButtonWidth = modeButtonT.getSize().x * 4.26875f;
 	double buttonX = (1366.f - ButtonWidth) / 2.f;
 	double buttonY = 5.f; //Khoảng cách từ title
-	double buttonSpace = 70.f;
+	//double buttonSpace = 70.f;
 
 	modeButton.setPosition(buttonX, buttonY);
 	newButton.setPosition(buttonX, buttonY);
@@ -122,7 +114,6 @@ int mainScreen(int& x, int& y) {
 					break;
 
 				case sf::Keyboard::Enter:
-					window.close();
 					return choice + 1;
 
 				//ESC
@@ -135,6 +126,7 @@ int mainScreen(int& x, int& y) {
 				}
 			}
 		}
+		window.clear();
 
 		if (backgroundT.getSize().x > 0) {
 			window.draw(bg);
@@ -181,6 +173,190 @@ int mainScreen(int& x, int& y) {
 	}
 	return 0;
 }
+
+int modeChoosing(sf::RenderWindow& window) {
+	//Tải background
+	sf::Texture backgroundT;
+	if (!backgroundT.loadFromFile("Assets/background_menu.png")) {
+	}
+
+	sf::Sprite bg(backgroundT);
+	bg.setScale(4.26875f, 4.267f);
+
+	//Tải ảnh từ folder
+	sf::Texture card1Front, card1Back, card2Front, card2Back, card3Front, card3Back;
+	card1Front.loadFromFile("Assets/card1.png");
+	card1Back.loadFromFile("Assets/card1_back.png");
+	card2Front.loadFromFile("Assets/card1.png");
+	card2Back.loadFromFile("Assets/card1_back.png");
+	card3Front.loadFromFile("Assets/card1.png");
+	card3Back.loadFromFile("Assets/card1_back.png");
+
+	double baseScale = 3.0f;
+	//Size và position card 1
+	double card1Width = card1Back.getSize().x * baseScale;
+	double card1Height = card1Back.getSize().y * baseScale;
+	double card1X = -300.0f;
+	double card1Y = 100.0f;
+
+	//Size và position card 2
+	double card2Width = card2Back.getSize().x * baseScale;
+	double card2Height = card2Back.getSize().y * baseScale;
+	double card2X = -90.0f;
+	double card2Y = 100.0f;
+
+	//Size và position card 3
+	double card3Width = card3Back.getSize().x * baseScale;
+	double card3Height = card3Back.getSize().y * baseScale;
+	double card3X = 100.0f;
+	double card3Y = 100.0f;
+
+	//Tạo sprite từng card
+	sf::Sprite card1F(card1Front);
+	sf::Sprite card1B(card1Back);
+	sf::Sprite card2F(card1Front);
+	sf::Sprite card2B(card1Back);
+	sf::Sprite card3F(card1Front);
+	sf::Sprite card3B(card1Back);
+
+	//set origin của object
+	//card 1
+	card1F.setOrigin(card1Front.getSize().x / 2.0f, card1Front.getSize().y / 2.0f);
+	card1B.setOrigin(card1Back.getSize().x / 2.0f, card1Back.getSize().y / 2.0f);
+
+	float centerX = card1X + card1Width / 2.0f;
+	float centerY = card1Y + card1Height / 2.0f;
+
+	card1F.setPosition(centerX, centerY);
+	card1B.setPosition(centerX, centerY);
+
+	//card 2
+	card2F.setOrigin(card2Front.getSize().x / 2.0f, card2Front.getSize().y / 2.0f);
+	card2B.setOrigin(card2Back.getSize().x / 2.0f, card2Back.getSize().y / 2.0f);
+
+	float center2X = card2X + card2Width / 2.0f;
+	float center2Y = card2Y + card2Height / 2.0f;
+
+	card2F.setPosition(center2X, center2Y);
+	card2B.setPosition(center2X, center2Y);
+
+	//card 3
+	card3F.setOrigin(card3Front.getSize().x / 2.0f, card3Front.getSize().y / 2.0f);
+	card3B.setOrigin(card3Back.getSize().x / 2.0f, card3Back.getSize().y / 2.0f);
+
+	float center3X = card3X + card3Width / 2.0f;
+	float center3Y = card3Y + card3Height / 2.0f;
+
+	card3F.setPosition(center3X, center3Y);
+	card3B.setPosition(center3X, center3Y);
+
+
+	int cardChoice = 1;
+	bool isCard1Flipped = false;
+	bool isFlipping = false;
+	double flipProcess = 0.0f;
+	const double flipSpeed = 4.0f;
+	bool showFront = false;
+
+	sf::Clock clock;
+	
+	while (window.isOpen()) {
+		float time = clock.restart().asSeconds();
+
+		sf::Event event;
+		while (window.pollEvent(event)) {
+			if (event.type == sf::Event::Closed) {
+				window.close();
+				return -1; //Thoát
+			}
+
+			if (event.type == sf::Event::KeyPressed) {
+				switch (event.key.code) {
+				case sf::Keyboard::A:
+				case sf::Keyboard::Left:
+					cardChoice = (cardChoice - 1 + 3) % 3;
+					break;
+
+				case sf::Keyboard::D:
+				case sf::Keyboard::Right:
+					cardChoice = (cardChoice + 1) % 3;
+					break;
+
+				case sf::Keyboard::Space:
+					if (!isFlipping && cardChoice == 1) {  
+						isFlipping = true;                 
+						flipProcess = 0.0f;                
+					}
+					break;
+
+				case sf::Keyboard::Enter:
+					return cardChoice + 1;
+
+					//ESC
+				case sf::Keyboard::Escape:
+					return -1;
+				default:
+					break;
+
+				}
+			}
+		}
+
+		if (isFlipping) {
+			flipProcess += flipSpeed * time;
+
+			if (flipProcess >= 1.0f) {
+				flipProcess = 1.0f;
+				isFlipping = false;
+				isCard1Flipped = !isCard1Flipped;
+			}
+		}
+
+		window.clear();
+
+		if (backgroundT.getSize().x > 0) {
+			window.draw(bg);
+		}
+
+		if (cardChoice == 1) {
+			double scaleX = baseScale;
+			double scaleY = baseScale;
+			bool showFront = isCard1Flipped;
+
+			if (isFlipping) {
+				double angle = flipProcess * 3.14159;
+				scaleX = baseScale * std::abs(std::cos(angle));
+
+				double zoomFactor = 1.0 + 0.3 * std::sin(flipProcess * 3.14159); 
+				scaleY = baseScale * zoomFactor;
+
+				if (flipProcess < 0.5f) {
+					showFront = isCard1Flipped;
+				}
+				else {
+					showFront = !isCard1Flipped;
+				}
+			}
+
+			if (showFront) {
+				card1F.setScale(scaleX, scaleY);
+				window.draw(card1F);
+			}
+			else {
+				card1B.setScale(scaleX, scaleY);
+				window.draw(card1B);
+			}
+		
+		}
+
+		window.display();
+	}
+	
+	return -1;
+
+}
+
+
 
 void PrintXY(int x, int y, const string& message)
 {
