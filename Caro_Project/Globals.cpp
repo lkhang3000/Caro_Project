@@ -1,7 +1,7 @@
-﻿#include "Globals.h"
+#include "Globals.h"
 //file lưu biến
 
-_POINT _A[12][12];
+_POINT _A[BOARD_SIZE][BOARD_SIZE] = {};
 bool _TURN = false;
 int _COMMAND = 0;
 int _X = 0;
