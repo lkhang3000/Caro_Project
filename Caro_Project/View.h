@@ -19,10 +19,13 @@ int ProcessFinish(int pWhoWin);
 int AskContinue();
 
 int mainScreen(sf::RenderWindow& window);
-int modeChoosing(sf::RenderWindow& window);
 void PrintXY(int x, int y, const string& message);
 void Cursor(bool is_up, int POSX, int POSY);
-#endif
 
+// Xử lý các màn hình chức năng
+void handleSettings(sf::RenderWindow& window, sf::Font& font);
+int modeChoosing(sf::RenderWindow& window);
+
+#endif
 
 
