@@ -1,4 +1,4 @@
-﻿#include <SFML/Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include "View.h"
 #include "Model.h"
 #include "Control.h"
@@ -92,7 +92,16 @@ int main() {
             break;
             //Thoát
         case 4:
+        {
+            // Mở cửa sổ Setting bằng SFML
+            //sf::RenderWindow settingsWindow(sf::VideoMode(1366, 768), "Settings", sf::Style::Close);
+            sf::Font font;
+            if (!font.loadFromFile("Assets/font/regular.ttf")) {
+                cerr << "Khong the tai font!\n";
+            }
+            handleSettings(window, font);
             break;
+        }
         default:
             continue;
 
